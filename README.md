@@ -15,7 +15,7 @@ Tkinter: Usually included with Python installations.
 Pillow (PIL): Install using pip install Pillow.
 Usage
 Clone the repository:
-git clone https://github.com/your-username/study-mate-app.git
+git clone https://github.com/Ismoilmirzo/Magnification-StudyMate/git
 Change into the project directory:
 cd study-mate-app
 Run the app:
