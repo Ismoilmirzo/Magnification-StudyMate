@@ -9,7 +9,6 @@ class StudyMateApp:
         self.root.title("StudyMate")
         self.root.geometry("400x300")
         self.root.resizable(False, False)
-
         
 
         self.create_menu()
@@ -122,20 +121,26 @@ class StudyMateApp:
             actual_size = float(self.actual_size_entry.get() or 0)
             measured_size = float(self.measured_size_entry.get() or 0)
 
-            if not magnification:
-                magnification = measured_size / actual_size
-                self.magnification_entry.delete(0, tk.END)
-                self.magnification_entry.insert(0, str(round(magnification, 2)))
-            elif not actual_size:
-                actual_size = measured_size / magnification
-                self.actual_size_entry.delete(0, tk.END)
-                self.actual_size_entry.insert(0, str(round(actual_size, 2)))
-            elif not measured_size:
-                measured_size = actual_size * magnification
-                self.measured_size_entry.delete(0, tk.END)
-                self.measured_size_entry.insert(0, str(round(measured_size, 2)))
+        # Count the number of non-zero fields
+            num_fields = sum([bool(magnification), bool(actual_size), bool(measured_size)])
 
-            self.result_label.config(text="Calculation Successful", foreground="green")
+            if num_fields != 2:
+                self.result_label.config(text="Error: Please fill exactly 2 fields.", foreground="red")
+            else:
+                if not magnification:
+                    magnification = measured_size / actual_size
+                    self.magnification_entry.delete(0, tk.END)
+                    self.magnification_entry.insert(0, str(round(magnification, 2)))
+                elif not actual_size:
+                    actual_size = measured_size / magnification
+                    self.actual_size_entry.delete(0, tk.END)
+                    self.actual_size_entry.insert(0, str(round(actual_size, 2)))
+                elif not measured_size:
+                    measured_size = actual_size * magnification
+                    self.measured_size_entry.delete(0, tk.END)
+                    self.measured_size_entry.insert(0, str(round(measured_size, 2)))
+
+                self.result_label.config(text="Calculation Successful", foreground="green")
         except ValueError:
             self.result_label.config(text="Invalid input. Please enter numeric values.", foreground="red")
 
